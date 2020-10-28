@@ -15,13 +15,15 @@ import java.io.FileOutputStream
 import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity() {
-    var id = ""
+    var id = "0"
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val objetoIntent: Intent = intent
         id = objetoIntent.getStringExtra("id").toString()
-        Toast.makeText(this, id.toString(), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, id, Toast.LENGTH_LONG).show()
 
         var btnRegistro = findViewById<Button>(R.id.btnRegistro)
         var btnLogin = findViewById<Button>(R.id.btnLogin)
@@ -62,15 +64,35 @@ class MainActivity : AppCompatActivity() {
             btnLogin.setEnabled(true)
         }
 
+
+    }
+
+    override fun onStart() {
+        var btnInformacion = findViewById<Button>(R.id.btnInformacion)
+        if (id != "null") {
+            btnInformacion.setEnabled(true)
+        }
+        super.onStart()
     }
 
     fun goRegistro(view: View) {
         var miIntent = Intent(this, Registro::class.java)
         startActivity(miIntent)
+
     }
 
     fun goLogin(view: View) {
         var miIntent = Intent(this, Login::class.java)
         startActivity(miIntent)
+
     }
+
+    fun goInformacion(view: View) {
+        val objetoIntent: Intent = intent
+        var miIntent = Intent(this, Informacion::class.java)
+        id = objetoIntent.getStringExtra("id").toString()
+        miIntent.putExtra("id", id)
+        startActivity(miIntent)
+    }
+
 }

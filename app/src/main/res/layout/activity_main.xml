@@ -35,6 +35,7 @@
         android:layout_marginTop="42dp"
         android:layout_marginEnd="138dp"
         android:text="Informacion"
+        android:onClick="goInformacion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
