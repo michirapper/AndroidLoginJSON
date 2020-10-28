@@ -37,7 +37,7 @@ class Registro : AppCompatActivity() {
         textoLeido = todo.toString()
         val jsonObject = JSONObject(textoLeido)
         val jsonArray = jsonObject.optJSONArray("usuarios")
-        for (i in 0 until jsonArray.length()) {
+        for (i in 1 until jsonArray.length()) {
             num = i
         }
         val main = JSONObject()

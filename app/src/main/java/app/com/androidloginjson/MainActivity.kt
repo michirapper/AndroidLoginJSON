@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         var nombreFichero = "ficheroInterno.json"
 
-        var textoNoExiste = "{\"usuarios\": []}"
+         var textoNoExiste = "{\"usuarios\": []}"
 
         //Comprobar si el JSON existe
 
@@ -44,6 +44,14 @@ class MainActivity : AppCompatActivity() {
             fileOutput.close()
         }
 
+
+
+
+    }
+
+    override fun onStart() {
+        var btnLogin = findViewById<Button>(R.id.btnLogin)
+        var nombreFichero = "ficheroInterno.json"
         //Leer todo el texto
 
         var bufferedReader = BufferedReader(InputStreamReader(openFileInput(nombreFichero)))
@@ -63,11 +71,6 @@ class MainActivity : AppCompatActivity() {
         if (!jsonArray.toString().equals("[]")) {
             btnLogin.setEnabled(true)
         }
-
-
-    }
-
-    override fun onStart() {
         var btnInformacion = findViewById<Button>(R.id.btnInformacion)
         if (id != "null") {
             btnInformacion.setEnabled(true)

@@ -49,19 +49,15 @@ class Informacion : AppCompatActivity() {
                 apellidos.setText(apellido)
                 users.setText(user)
                 pass.setText(contrasena)
-
-
-
-
             }
         }
     }
 
-        fun Cancelar(view: View) {
-            onBackPressed()
-        }
-
-        fun Actializar(view: View) {
-
-        }
+    fun Cancelar(view: View) {
+        onBackPressed()
     }
+
+    fun Actualizar(view: View) {
+
+    }
+}
