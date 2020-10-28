@@ -1,11 +1,13 @@
 package app.com.androidloginjson
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -37,18 +39,78 @@ class Registro : AppCompatActivity() {
         textoLeido = todo.toString()
         val jsonObject = JSONObject(textoLeido)
         val jsonArray = jsonObject.optJSONArray("usuarios")
-        for (i in 0 until jsonArray.length()) {
-            num = i+1
+        if (jsonArray.length() == 0){
+            val jsonObject = JSONObject(textoLeido)
+            val jsonArray = jsonObject.optJSONArray("usuarios")
+            for (i in 0 until jsonArray.length()) {
+                num = i+1
+            }
+            val main = JSONObject()
+            main.put("id", num)
+            main.put("nombre", nombre.text)
+            main.put("Apellido", apellidos.text)
+            main.put("user", user.text)
+            main.put("contrasena", pass.text)
+            jsonArray.put(main)
+            var fileOutput = openFileOutput(nombreFichero, Context.MODE_PRIVATE)
+            fileOutput.write(jsonObject.toString().toByteArray())
+            fileOutput.close()
         }
-        val main = JSONObject()
-        main.put("id", num)
-        main.put("nombre", nombre.text)
-        main.put("Apellido", apellidos.text)
-        main.put("user", user.text)
-        main.put("contrasena", pass.text)
-        jsonArray.put(main)
-        var fileOutput = openFileOutput(nombreFichero, Context.MODE_PRIVATE)
-        fileOutput.write(jsonObject.toString().toByteArray())
-        fileOutput.close()
+        for (i in 0 until jsonArray.length()) {
+
+            val jsonObject = jsonArray.getJSONObject(i)
+
+            if (jsonObject.optString("user").equals(user.text.toString())) {
+
+                val id = jsonObject.optString("id").toInt()
+
+                val jsonObject = JSONObject(textoLeido)
+                val jsonArray = jsonObject.optJSONArray("usuarios")
+
+                jsonArray.remove(id)
+
+                val main = JSONObject()
+                main.put("id", num)
+                main.put("nombre", nombre.text)
+                main.put("Apellido", apellidos.text)
+                main.put("user", user.text)
+                main.put("contrasena", pass.text)
+                jsonArray.put(main)
+                var fileOutput = openFileOutput(nombreFichero, Context.MODE_PRIVATE)
+                fileOutput.write(jsonObject.toString().toByteArray())
+                fileOutput.close()
+
+
+            }
+        }
+        for (i in 0 until jsonArray.length()) {
+
+            val jsonObject = jsonArray.getJSONObject(i)
+
+            if (!jsonObject.optString("user").equals(user.text.toString())) {
+
+                val jsonObject = JSONObject(textoLeido)
+                val jsonArray = jsonObject.optJSONArray("usuarios")
+                for (i in 0 until jsonArray.length()) {
+                    num = i+1
+                }
+                val main = JSONObject()
+                main.put("id", num)
+                main.put("nombre", nombre.text)
+                main.put("Apellido", apellidos.text)
+                main.put("user", user.text)
+                main.put("contrasena", pass.text)
+                jsonArray.put(main)
+                var fileOutput = openFileOutput(nombreFichero, Context.MODE_PRIVATE)
+                fileOutput.write(jsonObject.toString().toByteArray())
+                fileOutput.close()
+            }
+        }
+
+
+
+
+        // }
+        // }
     }
 }
