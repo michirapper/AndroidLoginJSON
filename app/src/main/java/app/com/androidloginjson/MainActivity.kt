@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -14,9 +15,13 @@ import java.io.FileOutputStream
 import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity() {
+    var id = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val objetoIntent: Intent = intent
+        id = objetoIntent.getStringExtra("id").toString()
+        Toast.makeText(this, id.toString(), Toast.LENGTH_LONG).show()
 
         var btnRegistro = findViewById<Button>(R.id.btnRegistro)
         var btnLogin = findViewById<Button>(R.id.btnLogin)
@@ -49,8 +54,8 @@ class MainActivity : AppCompatActivity() {
         bufferedReader.close()
         textoLeido = todo.toString()
 
-        //Comprobar si hay algo en el fichero y deshabilitar botones
-        
+        //Comprobar si hay algo en el fichero y deshabilita botone de Login
+
         val jsonObject = JSONObject(textoLeido)
         val jsonArray = jsonObject.optJSONArray("usuarios")
         if (!jsonArray.toString().equals("[]")) {
@@ -61,6 +66,11 @@ class MainActivity : AppCompatActivity() {
 
     fun goRegistro(view: View) {
         var miIntent = Intent(this, Registro::class.java)
+        startActivity(miIntent)
+    }
+
+    fun goLogin(view: View) {
+        var miIntent = Intent(this, Login::class.java)
         startActivity(miIntent)
     }
 }
