@@ -12,7 +12,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 class Informacion : AppCompatActivity() {
-    var num = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_informacion)
@@ -65,12 +65,14 @@ class Informacion : AppCompatActivity() {
     }
 
     fun Actualizar(view: View) {
+        var num = 0
         val objetoIntent: Intent = intent
         var id = objetoIntent.getStringExtra("id")!!.toInt()
         var nombre = findViewById<EditText>(R.id.editTextTextNombre)
         var apellidos = findViewById<EditText>(R.id.editTextTextApellidos)
         var users = findViewById<EditText>(R.id.editTextTextUsuario)
         var pass = findViewById<EditText>(R.id.editTextTextContrasena)
+        num = id
 
         var nombreFichero = "ficheroInterno.json"
         var bufferedReader = BufferedReader(InputStreamReader(openFileInput(nombreFichero)))
